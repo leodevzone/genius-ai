@@ -33,7 +33,7 @@ const CodePage = () => {
 	  role: "system",
 	  content: "You are a code generator. You must answer only in markdown code snippets. Use code comments for explanation.",
 	};
-  const [messages, setMessages] = useState<instructionMessage>([]);
+  const [messages, setMessages] = useState<OpenAI.Chat.Completions.CreateChatCompletionRequestMessage[]>([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
