@@ -10,9 +10,10 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-const instructionMessage: OpenAI.Chat.Completions.CreateChatCompletionRequestMessage = {
+
+const instructionMessage = {
   role: "system",
-  content: "You are a code generator. You must answer only in markdown code snippets. Use code comments for explanations."
+  content: "You are a code generator. You must answer only in markdown code snippets. Use code comments for explanation.",
 };
 
 export async function POST(
@@ -28,7 +29,7 @@ export async function POST(
     }
 
     if (!openai.apiKey) {
-      return new NextResponse("CLave de OpenAI no esta configurado.", { status: 500 });
+      return new NextResponse("Clave de OpenAI no esta configurado.", { status: 500 });
     }
 
     if (!messages) {
