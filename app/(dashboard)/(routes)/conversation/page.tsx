@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { MessageSquare } from "lucide-react";
 import { useRouter } from "next/navigation";
-import type { ChatCompletionRequestMessage } from "openai";
+import OpenAI from "openai"; // <-- Importa correctamente el tipo
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -21,6 +21,13 @@ import { Input } from "@/components/ui/input";
 import { useProModal } from "@/hooks/use-pro-modal";
 import { cn } from "@/lib/utils";
 import { conversationFormSchema } from "@/schemas";
+
+
+// Define manualmente el tipo ChatCompletionRequestMessage
+type ChatCompletionRequestMessage = {
+  role: "system" | "user" | "assistant";
+  content: string;
+};
 
 const ConversationPage = () => {
   const proModal = useProModal();
