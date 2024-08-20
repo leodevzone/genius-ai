@@ -45,10 +45,13 @@ export async function POST(req: NextRequest) {
     }
 
     // Llamada asíncrona para crear la imagen
-    const response = await openai.createImage({
-      prompt,
+    // Llamada a la API de OpenAI para generar la imagen
+    const response = await openai.createCompletion({
+      model: "image-gpt-3.en-x-large", // Modelo para generación de imágenes
+      prompt: prompt,
       n: parseInt(amount, 10),
       size: resolution,
+      max_tokens: 150, // Ajusta según la complejidad de la imagen
     });
 
     if (!isPro) {
@@ -56,9 +59,10 @@ export async function POST(req: NextRequest) {
     }
 
     // Extrae los datos de la respuesta correctamente
-    const responseData = response.data;
+    const imageUrls = response.data.choices.map((choice) => choice.url);
 
-    return NextResponse.json(responseData);
+
+    return NextResponse.json({ imageUrls });
 	
   } catch (error) {
     console.log('[IMAGE_ERROR]', error);
