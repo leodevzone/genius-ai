@@ -8,7 +8,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import ReactMarkdown from "react-markdown";
 import { useRouter } from "next/navigation";
-import OpenAI from "openai";
+import OpenAI, { ChatCompletionRequestMessage } from "openai";
 
 import { BotAvatar } from "@/components/bot-avatar";
 import { Heading } from "@/components/heading";
@@ -27,7 +27,7 @@ import { formSchema } from "./constants";
 const CodePage = () => {
   const router = useRouter();
   const proModal = useProModal();
-  const [messages, setMessages] = useState<OpenAI.Chat.Completions.CreateChatCompletionRequestMessage[]>([]);
+  const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]); // <-- Cambiado aquí
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -39,16 +39,15 @@ const CodePage = () => {
   const isLoading = form.formState.isSubmitting;
   
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    try {
-      const userMessage: OpenAI.Chat.Completions.CreateChatCompletionRequestMessage =
-        {
-          role: 'user',
-          content: values.prompt,
-        };
-      const newMessages = [...messages, userMessage];
+    const userMessage: ChatCompletionRequestMessage = // <-- Cambiado aquí
+    {
+      role: 'user',
+      content: values.prompt,
+    };
+  const newMessages = [...messages, userMessage];
       
-      const response = await axios.post('/api/code', { messages: newMessages });
-      setMessages((current) => [...current, userMessage, response.data]);
+  const response = await axios.post('/api/code', { messages: newMessages });
+  setMessages((current) => [...current, userMessage, response.data]);
       
       form.reset();
     } catch (error: any) {
