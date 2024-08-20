@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 
-import { Empty } from "@/components/empty";
+import { Empty } from "@/components/ui/empty";
 import { Heading } from "@/components/heading";
 import { Loader } from "@/components/loader";
 import { Button } from "@/components/ui/button";
