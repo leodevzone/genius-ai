@@ -1,6 +1,10 @@
 import { auth } from "@clerk/nextjs";
 import { type NextRequest, NextResponse } from "next/server";
-import { Configuration, OpenAIApi } from "openai";
+import {
+  type ChatCompletionRequestMessage,
+  Configuration,
+  OpenAIApi,
+} from "openai";
 
 import { increaseApiLimit, checkApiLimit } from "@/lib/api-limit";
 import { checkSubscription } from "@/lib/subscription";
@@ -10,6 +14,12 @@ const configuration = new Configuration({
 });
 
 const openai = new OpenAIApi(configuration);
+
+const intructionMessage: ChatCompletionRequestMessage = {
+  role: "system",
+  content:
+    "You are a code generator. You must answer only in markdown code snippets. Use code comments for explaination.",
+};
 
 export async function POST(req: NextRequest) {
   try {
@@ -35,14 +45,14 @@ export async function POST(req: NextRequest) {
 
     const response = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
-      messages,
+      messages: [intructionMessage, ...messages],
     });
 
     if (!isPro) await increaseApiLimit();
 
     return NextResponse.json(response.data.choices[0].message, { status: 200 });
   } catch (error: unknown) {
-    console.error("[CONVERSATION_ERROR]: ", error);
+    console.error("[CODE_ERROR]: ", error);
     return new NextResponse("Internal server error.", { status: 500 });
   }
 }

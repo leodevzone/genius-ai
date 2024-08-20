@@ -1,19 +1,20 @@
 import { auth } from "@clerk/nextjs";
 import { type NextRequest, NextResponse } from "next/server";
-import {
-  type ChatCompletionRequestMessage,
-  Configuration,
-  OpenAIApi,
-} from "openai";
+//import { type ChatCompletionRequestMessage, Configuration,OpenAIApi,} from "openai";
+// New (i.e., OpenAI NodeJS SDK v4)
+import OpenAI from 'openai';
 
 import { increaseApiLimit, checkApiLimit } from "@/lib/api-limit";
 import { checkSubscription } from "@/lib/subscription";
 
-const configuration = new Configuration({
+const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
+//const configuration = new Configuration({
+//  apiKey: process.env.OPENAI_API_KEY,
+//});
 
-const openai = new OpenAIApi(configuration);
+//const openai = new OpenAIApi(configuration);
 
 const intructionMessage: ChatCompletionRequestMessage = {
   role: "system",
