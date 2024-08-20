@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
       return new NextResponse("Clave de OpenAI no esta configurado.", { status: 500 });
     }
 
-    if (!messages) {
+    if (!prompt) {
       return new NextResponse("Se requiere un mensaje", { status: 400 });
     }
     if (!amount)
