@@ -45,15 +45,7 @@ export const TESTIMONIALS = [
     description: "Funciones increíbles y diseño fácil de usar. Me encanta.",
   },
 ] as const;
-export const CAPABILITIES_TITLE = "La mejor herramienta de IA para" as const;
-export const CAPABILITIES_FOOTER = "Acelere su negocio usando IA 10x más rápido." as const;
-export const CAPABILITIES_TOOLS = [
-  "Potenciar tus ideas.",
-  "Creación de contenido.",
-  "Descubrimiento de insights.",
-  "Identificar estrategias.",
-  "Innovación disruptiva.",
-] as const;
+
 
 export const CAPABILITIES = {
   title: "La mejor herramienta de IA para",
