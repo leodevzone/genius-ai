@@ -5,10 +5,10 @@ import axios from "axios";
 import { Code } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { toast } from "sonner";
+import { toast } from "react-hot-toast";
 import ReactMarkdown from "react-markdown";
 import { useRouter } from "next/navigation";
-import OpenAI, { ChatCompletionRequestMessage } from "openai";
+import OpenAI, { ChatCompletionRequestMessage } from "openai"; // <-- Importa correctamente el tipo
 
 import { BotAvatar } from "@/components/bot-avatar";
 import { Heading } from "@/components/heading";
@@ -39,15 +39,16 @@ const CodePage = () => {
   const isLoading = form.formState.isSubmitting;
   
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    const userMessage: ChatCompletionRequestMessage = // <-- Cambiado aquí
-    {
-      role: 'user',
-      content: values.prompt,
-    };
-  const newMessages = [...messages, userMessage];
+    try {
+      const userMessage: ChatCompletionRequestMessage = // <-- Cambiado aquí
+        {
+          role: 'user',
+          content: values.prompt,
+        };
+      const newMessages = [...messages, userMessage];
       
-  const response = await axios.post('/api/code', { messages: newMessages });
-  setMessages((current) => [...current, userMessage, response.data]);
+      const response = await axios.post('/api/code', { messages: newMessages });
+      setMessages((current) => [...current, userMessage, response.data]);
       
       form.reset();
     } catch (error: any) {
