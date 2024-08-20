@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
     });
 
     if (!isPro) {
-      await incrementApiLimit();
+      await increaseApiLimit();
     }
 
     return NextResponse.json(response.choices[0].message);

@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
     });
 
    if (!isPro) {
-      await incrementApiLimit();
+      await increaseApiLimit();
     }
 
     const responseData = response.data || response;
