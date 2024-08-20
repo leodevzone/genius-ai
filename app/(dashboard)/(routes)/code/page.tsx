@@ -5,10 +5,9 @@ import axios from "axios";
 import { Code } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { toast } from "sonner";
+import { toast } from "react-hot-toast";
 import ReactMarkdown from "react-markdown";
 import { useRouter } from "next/navigation";
-
 import OpenAI from "openai";
 
 import { BotAvatar } from "@/components/bot-avatar";
@@ -20,19 +19,14 @@ import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
 import { Loader } from "@/components/loader";
 import { UserAvatar } from "@/components/user-avatar";
-import { Empty } from "@/components/empty";
+import { Empty } from "@/components/ui/empty";
 import { useProModal } from "@/hooks/use-pro-modal";
-
 
 import { formSchema } from "./constants";
 
 const CodePage = () => {
   const router = useRouter();
   const proModal = useProModal();
-	const instructionMessage = {
-	  role: "system",
-	  content: "You are a code generator. You must answer only in markdown code snippets. Use code comments for explanation.",
-	};
   const [messages, setMessages] = useState<OpenAI.Chat.Completions.CreateChatCompletionRequestMessage[]>([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -43,14 +37,14 @@ const CodePage = () => {
   });
 
   const isLoading = form.formState.isSubmitting;
-
+  
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const userMessage = {
-        role: "user",
-        content: values.prompt,
-      };
-
+      const userMessage: OpenAI.Chat.Completions.CreateChatCompletionRequestMessage =
+        {
+          role: 'user',
+          content: values.prompt,
+        };
       const newMessages = [...messages, userMessage];
       
       const response = await axios.post('/api/code', { messages: newMessages });
