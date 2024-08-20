@@ -1,55 +1,61 @@
 import { auth } from "@clerk/nextjs";
 import { type NextRequest, NextResponse } from "next/server";
-import { Configuration, OpenAIApi } from "openai";
+import OpenAI from 'openai';
 
 import { increaseApiLimit, checkApiLimit } from "@/lib/api-limit";
 import { checkSubscription } from "@/lib/subscription";
 
-const configuration = new Configuration({
+const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-const openai = new OpenAIApi(configuration);
+
 
 export async function POST(req: NextRequest) {
   try {
     const { userId } = auth();
-
     const body = await req.json();
     const { prompt, amount = "1", resolution = "512x512" } = body;
 
-    if (!userId) return new NextResponse("Unauthorized.", { status: 401 });
-    if (!configuration.apiKey)
-      return new NextResponse("OpenAI api key not configured.", {
-        status: 500,
-      });
+    if (!userId) {
+      return new NextResponse("No esta autorizado", { status: 401 });
+    }
 
-    if (!prompt)
-      return new NextResponse("Prompt is required.", { status: 400 });
+    if (!openai.apiKey) {
+      return new NextResponse("Clave de OpenAI no esta configurado.", { status: 500 });
+    }
 
+    if (!messages) {
+      return new NextResponse("Se requiere un mensaje", { status: 400 });
+    }
     if (!amount)
-      return new NextResponse("Amount is required.", { status: 400 });
+      return new NextResponse("La cantidad es requerida.", { status: 400 });
 
     if (!resolution)
-      return new NextResponse("Resolution is required.", { status: 400 });
+      return new NextResponse("La resolución es requerida.", { status: 400 });
 
     const freeTrial = await checkApiLimit();
     const isPro = await checkSubscription();
 
-    if (!freeTrial && !isPro)
-      return new NextResponse("Free trial has expired.", { status: 403 });
-
-    const response = await openai.createImage({
+    if (!freeTrial && !isPro) {
+      return new NextResponse("La versión gratis ha finalizado. Por favor actualizar a Pro.", { status: 403 });
+    }
+    const response = await openai.images.create({
       prompt,
       n: parseInt(amount, 10),
       size: resolution,
     });
 
-    if (!isPro) await increaseApiLimit();
+   if (!isPro) {
+      await incrementApiLimit();
+    }
 
-    return NextResponse.json(response.data.data, { status: 200 });
-  } catch (error: unknown) {
-    console.error("[IMAGE_ERROR]: ", error);
-    return new NextResponse("Internal server error.", { status: 500 });
+    const responseData = response.data || response;
+
+    return NextResponse.json(responseData);
+	
+  } catch (error) {
+    console.log('[IMAGE_ERROR]', error);
+    return new NextResponse("Internal Error", { status: 500 });
   }
 }
