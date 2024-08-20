@@ -20,29 +20,29 @@ export const TESTIMONIALS = [
   {
     name: "Carlos",
     image: "/testimonials/user-1.jpeg",
-    title: "Marketing Specialist",
+    title: "Especialista de Marketing",
     description:
-      "This application has significantly boosted our marketing efforts.",
+      "Esta aplicación ha impulsado significativamente nuestros esfuerzos de marketing.",
   },
   {
     name: "Emilia",
     image: "/testimonials/user-2.jpeg",
-    title: "Student",
+    title: "Gerente general",
     description:
-      "As a student, this app has been a lifesaver for organizing my tasks and schedules.",
+      "Esta aplicación me ha salvado la vida a la hora de organizar mis tareas y horarios.",
   },
   {
     name: "David",
     image: "/testimonials/user-3.jpeg",
-    title: "Entrepreneur",
+    title: "Emprendedor",
     description:
-      "The efficiency and reliability of this tool are unparalleled. Highly recommended!",
+      "La eficacia y fiabilidad de esta herramienta son incomparables. Muy recomendable.",
   },
   {
     name: "Sophia",
     image: "/testimonials/user-4.jpeg",
-    title: "Graphic Designer",
-    description: "Incredible features and user-friendly design. Love it!",
+    title: "GDirector de TI",
+    description: "Funciones increíbles y diseño fácil de usar. Me encanta.",
   },
 ] as const;
 export const CAPABILITIES_TITLE = "La mejor herramienta de IA para" as const;
@@ -55,8 +55,21 @@ export const CAPABILITIES_TOOLS = [
   "Innovación disruptiva.",
 ] as const;
 
-export const ACCESS_TITLE = "Pruebe gratis" as const;
-export const ACCESS_FOOTER = "No se requiere Tarjeta" as const;
+export const CAPABILITIES = {
+  title: "La mejor herramienta de IA para",
+  footer: "Acelera tu negocio 10x más rápido, usando IA.",
+  tools: [
+    "Potenciar tus ideas.",
+    "Creación de contenido.",
+    "Descubrimiento de insights.",
+    "Identificar estrategias.",
+    "Innovación disruptiva.",
+  ],
+} as const;
+export const ACCESS = {
+  title: "Pruebalo gratis",
+  footer: "No se requiere Tarjeta",
+} as const;
 
 export const TOOLS = [
   {

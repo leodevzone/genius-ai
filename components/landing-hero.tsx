@@ -9,8 +9,8 @@ import { Button } from "./ui/button";
 import { CAPABILITIES_TITLE } from "@/constants";
 import { CAPABILITIES_TOOLS } from "@/constants";
 import { CAPABILITIES_FOOTER } from "@/constants";
-import { ACCESS_TITLE } from "@/constants";
-import { ACCESS_FOOTER } from "@/constants";
+import { ACCESS } from "@/constants";
+import { CAPABILITIES } from "@/constants";
 
 export const LandingHero = () => {
   const { isSignedIn } = useAuth();
@@ -18,11 +18,11 @@ export const LandingHero = () => {
   return (
     <div className="text-white font-bold py-36 text-center space-y-5">
       <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl space-y-5 font-extrabold">
-        <h1>{CAPABILITIES_TITLE}</h1>
+        <h1>{CAPABILITIES.title}</h1>
         <div className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
         <TypewriterComponent
             options={{
-              strings: [...CAPABILITIES_TOOLS], // Use the strings constant
+              strings: [...CAPABILITIES.tools], // Use the strings constant
               autoStart: true,
               loop: true,
             }}
@@ -31,7 +31,7 @@ export const LandingHero = () => {
       </div>
 
       <div className="text-sm md:text-xl font-light text-zinc-400">
-        {CAPABILITIES_FOOTER}
+        {CAPABILITIES.footer}
       </div>
 
       <div className="">
@@ -41,13 +41,13 @@ export const LandingHero = () => {
           asChild
         >
           <Link href={isSignedIn ? "/dashboard" : "/sign-up"}>
-            {ACCESS_TITLE}
+          {ACCESS.title}
           </Link>
         </Button>
       </div>
 
       <div className="text-zinc-400 text-xs md:text-sm font-normal">
-        {ACCESS_FOOTER}
+        {ACCESS.footer}
       </div>
     </div>
   );

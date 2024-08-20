@@ -8,7 +8,7 @@ export const Loader = () => {
         <Image src="/logo.png" alt={`${SITE_NAME} logo`}  fill />
       </div>
 
-      <p className="text-sm text-muted-foreground">{SITE_NAME} is thinking...</p>
+      <p className="text-sm text-muted-foreground">{SITE_NAME} esta pensando...</p>
     </div>
   );
 };

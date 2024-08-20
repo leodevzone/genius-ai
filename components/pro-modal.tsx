@@ -34,7 +34,7 @@ export const ProModal = () => {
 
       window.location.href = response.data.url;
     } catch (error: unknown) {
-      toast.error("Something went wrong.");
+      toast.error("Algo funcionó mal.");
       console.error("[STRIPE_CLIENT_ERROR]: ", error);
     } finally {
       setIsLoading(false);
@@ -47,7 +47,7 @@ export const ProModal = () => {
         <DialogHeader>
           <DialogTitle className="flex justify-center items-center flex-col gap-y-4 pb-2">
             <div className="flex items-center gap-x-2 font-bold py-1">
-              Upgrade to {SITE_NAME}
+              Actualiza a {SITE_NAME}
               <Badge className="uppercase text-sm py-1" variant="premium">
                 pro
               </Badge>
@@ -83,7 +83,7 @@ export const ProModal = () => {
             disabled={isLoading}
             aria-disabled={isLoading}
           >
-            Upgrade
+            Actualizar
             <Zap className="w-4 h-4 ml-4 fill-white" />
           </Button>
         </DialogFooter>
