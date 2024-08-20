@@ -1,11 +1,11 @@
 import { auth } from "@clerk/nextjs";
 import { type NextRequest, NextResponse } from "next/server";
-import OpenAI from 'openai';
+import OpenAIApi from 'openai';
 
 import { increaseApiLimit, checkApiLimit } from "@/lib/api-limit";
 import { checkSubscription } from "@/lib/subscription";
 
-const openai = new OpenAI({
+const openai = new OpenAIApi({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
