@@ -48,12 +48,24 @@ export const TESTIMONIALS = [
 export const CAPABILITIES_TITLE = "La mejor herramienta de IA para" as const;
 export const CAPABILITIES_FOOTER = "Acelere su negocio usando IA 10x más rápido." as const;
 export const CAPABILITIES_TOOLS = [
+<<<<<<< Updated upstream
   "Generación de ideas.",
   "Generación de contenido.",
   "Descubrimiento de insights.",
   "Identificar tendencias y estrategias.",
   "Innovación disruptiva.",
 ] as const;
+=======
+  "Potenciar tus ideas.",
+  "Creación de contenido.",
+  "Descubrimiento de insights.",
+  "Identificar estrategias.",
+  "Innovación disruptiva.",
+] as const;
+
+export const ACCESS_TITLE = "Pruebe gratis" as const;
+export const ACCESS_FOOTER = "No se requiere Tarjeta" as const;
+>>>>>>> Stashed changes
 
 export const TOOLS = [
   {
@@ -125,4 +137,8 @@ export const FOOTER_LINKS = [
     icon: Instagram,
     link: "https://instagram.com",
   },
+<<<<<<< Updated upstream
 ];
+=======
+];
+>>>>>>> Stashed changes
