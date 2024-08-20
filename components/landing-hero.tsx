@@ -9,7 +9,8 @@ import { Button } from "./ui/button";
 import { CAPABILITIES_TITLE } from "@/constants";
 import { CAPABILITIES_TOOLS } from "@/constants";
 import { CAPABILITIES_FOOTER } from "@/constants";
-
+import { ACCESS_TITLE } from "@/constants";
+import { ACCESS_FOOTER } from "@/constants";
 
 export const LandingHero = () => {
   const { isSignedIn } = useAuth();

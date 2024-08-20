@@ -128,7 +128,4 @@ export const FOOTER_LINKS = [
     icon: Instagram,
     link: "https://instagram.com",
   },
-<<<<<<< Updated upstream
-];
-=======
 ];
