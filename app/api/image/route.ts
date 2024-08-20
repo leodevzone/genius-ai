@@ -1,16 +1,15 @@
 import { auth } from "@clerk/nextjs";
 import { type NextRequest, NextResponse } from "next/server";
-import { Configuration, OpenAIApi } from "openai"; // Asegúrate de importar correctamente
+import   OpenAIApi  from "openai"; // Asegúrate de importar correctamente
 
 import { increaseApiLimit, checkApiLimit } from "@/lib/api-limit";
 import { checkSubscription } from "@/lib/subscription";
 
-// Configura la API de OpenAI
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
-});
 
-const openai = new OpenAIApi(configuration); // Inicializa OpenAIApi con la configuración
+
+const openai = new OpenAIApi({
+  apiKey: process.env.OPENAI_API_KEY,
+}); // Inicializa OpenAIApi con la configuración
 
 export async function POST(req: NextRequest) {
   try {
