@@ -19,7 +19,7 @@ model UserApiLimit {
 
 model UserConversation {
   userId      String   // Relación con el usuario
-  modelId     String   // modelo utilizado
+  modelId     String   // Modelo utilizado
   threadId    String   // ID del thread específico
   threadName  String   // Nombre del thread
   summary     String   // Resumen de la conversación
@@ -27,6 +27,7 @@ model UserConversation {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
+  @@id([userId, modelId, threadId]) // Clave compuesta única
   @@index([userId, modelId, threadId]) // Índice para búsquedas eficientes
 }
 
