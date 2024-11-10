@@ -11,9 +11,23 @@ datasource db {
 model UserApiLimit {
   id        String   @id      @default(cuid())
   userId    String   @unique
+  InvitationCode    String  
   count     Int      @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model UserConversation {
+  userId      String   // Relación con el usuario
+  modelId     String   // modelo utilizado
+  threadId    String   // ID del thread específico
+  threadName  String   // Nombre del thread
+  summary     String   // Resumen de la conversación
+  content     Json     // JSON de la conversación
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId, modelId, threadId]) // Índice para búsquedas eficientes
 }
 
 model UserSubscription {
@@ -23,4 +37,24 @@ model UserSubscription {
   stripeSubscriptionId    String?   @unique @map(name: "stripe_subscription_id")
   stripePriceId           String?   @unique @map(name: "stripe_price_id")
   stripeCurrentPeriodEnd  DateTime? @unique @map(name: "stripe_current_period_end")
+}
+
+model IaModelTools {
+  modelId     String @id @default(cuid()) @map(name: "model_id")
+  modelName   String @map(name: "model_name")
+  asistantId  String @map(name: "asistant_Id")
+  label       String
+  icon        String
+  color       String
+  bgColor     String
+  href        String
+  isEnabled   Boolean @default(true)
+}
+model Option {
+  id        String @id @default(cuid())
+  key       String @unique // La clave única que identifica la opción
+  value     String // El valor de la opción, como texto
+  autoload  Boolean @default(true) // Indica si la opción debe cargarse automáticamente
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
