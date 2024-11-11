@@ -1,27 +1,28 @@
-import { auth } from "@clerk/nextjs"; 
+import { auth } from "@clerk/nextjs";
 import { type NextRequest, NextResponse } from "next/server";
-import { Configuration, OpenAIApi } from "openai"; // Importación correcta de OpenAIApi
+import OpenAI from "openai";
 import { increaseApiLimit, checkApiLimit } from "@/lib/api-limit";
 import { checkSubscription } from "@/lib/subscription";
 
-// Configura el cliente de OpenAI con la API Key
-const configuration = new Configuration({
+// Inicializar el cliente de OpenAI con la configuración correcta
+const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
-const openai = new OpenAIApi(configuration);
 
 export async function POST(req: NextRequest) {
   try {
     const { userId } = auth();
     const body = await req.json();
-    const { prompt, amount = "1", resolution = "512x512" } = body;
+    const { prompt, amount = "1", resolution = "1024x1024" } = body;
 
     if (!userId) {
       return new NextResponse("No está autorizado", { status: 401 });
     }
 
     if (!process.env.OPENAI_API_KEY) {
-      return new NextResponse("Clave de OpenAI no está configurada.", { status: 500 });
+      return new NextResponse("Clave de OpenAI no está configurada.", { 
+        status: 500 
+      });
     }
 
     if (!prompt) {
@@ -40,27 +41,33 @@ export async function POST(req: NextRequest) {
     const isPro = await checkSubscription();
 
     if (!freeTrial && !isPro) {
-      return new NextResponse("La versión gratis ha finalizado. Por favor actualice a Pro.", { status: 403 });
+      return new NextResponse(
+        "La versión gratis ha finalizado. Por favor actualice a Pro.", 
+        { status: 403 }
+      );
     }
 
-    // Llamada a la API de OpenAI para generar la imagen
-    const response = await openai.createImage({
+    // Llamada correcta a la API de OpenAI para generar imágenes
+    const response = await openai.images.generate({
+      model: "dall-e-3", // o "dall-e-2" dependiendo de tus necesidades
       prompt: prompt,
       n: parseInt(amount, 10),
-      size: resolution,
+      size: resolution as "1024x1024" | "1024x1792" | "1792x1024", // dall-e-3 sizes
+      quality: "standard", // "standard" o "hd" para dall-e-3
+      style: "natural", // "natural" o "vivid" para dall-e-3
     });
-    console.log('[response]', response);
+
     if (!isPro) {
       await increaseApiLimit();
     }
-    const imageUrls = (response.data.data as { url: string }[]).map((image) => image.url);
-    // Extrae los URLs de las imágenes generadas
-    //const imageUrls = response.data.data.map((image) => image.url);
+
+    // La respuesta ahora incluye las URLs de las imágenes generadas
+    const imageUrls = response.data.map((image) => image.url);
 
     return NextResponse.json({ imageUrls });
-	
+    
   } catch (error) {
-    console.error('[IMAGE_ERROR]', error);
+    console.log('[IMAGE_ERROR]', error);
     return new NextResponse("Error interno", { status: 500 });
   }
 }
