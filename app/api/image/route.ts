@@ -1,15 +1,14 @@
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs"; 
 import { type NextRequest, NextResponse } from "next/server";
-import   OpenAIApi  from "openai"; // Asegúrate de importar correctamente
-
+import { Configuration, OpenAIApi } from "openai"; // Importación correcta de OpenAIApi
 import { increaseApiLimit, checkApiLimit } from "@/lib/api-limit";
 import { checkSubscription } from "@/lib/subscription";
 
-
-
-const openai = new OpenAIApi({
+// Configura el cliente de OpenAI con la API Key
+const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
-}); // Inicializa OpenAIApi con la configuración
+});
+const openai = new OpenAIApi(configuration);
 
 export async function POST(req: NextRequest) {
   try {
@@ -44,28 +43,24 @@ export async function POST(req: NextRequest) {
       return new NextResponse("La versión gratis ha finalizado. Por favor actualice a Pro.", { status: 403 });
     }
 
-    // Llamada asíncrona para crear la imagen
     // Llamada a la API de OpenAI para generar la imagen
-    const response = await openai.createCompletion({
-      model: "image-gpt-3.en-x-large", // Modelo para generación de imágenes
+    const response = await openai.createImage({
       prompt: prompt,
       n: parseInt(amount, 10),
       size: resolution,
-      max_tokens: 150, // Ajusta según la complejidad de la imagen
     });
-
+    console.log('[response]', response);
     if (!isPro) {
       await increaseApiLimit();
     }
-
-    // Extrae los datos de la respuesta correctamente
-    const imageUrls = response.data.choices.map((choice) => choice.url);
-
+    const imageUrls = (response.data.data as { url: string }[]).map((image) => image.url);
+    // Extrae los URLs de las imágenes generadas
+    //const imageUrls = response.data.data.map((image) => image.url);
 
     return NextResponse.json({ imageUrls });
 	
   } catch (error) {
-    console.log('[IMAGE_ERROR]', error);
+    console.error('[IMAGE_ERROR]', error);
     return new NextResponse("Error interno", { status: 500 });
   }
 }
