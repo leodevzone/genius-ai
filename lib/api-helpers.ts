@@ -1,6 +1,6 @@
 // lib/api-helpers.ts
 import { NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { checkApiLimit } from "./api-limit";
 import { checkSubscription } from "./subscription";
 
