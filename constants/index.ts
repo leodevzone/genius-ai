@@ -14,7 +14,7 @@ import {
 
 export const SITE_NAME = "Simon-ai";
 
-export const MAX_FREE_COUNTS = 2 as const;
+export const MAX_FREE_COUNTS = 4 as const;
 
 export const TESTIMONIALS = [
   {
