@@ -5,7 +5,7 @@ import { checkApiLimit } from "./api-limit";
 import { checkSubscription } from "./subscription";
 
 export async function checkRequestValidity(req: Request) {
-  const { userId } = auth();
+  const { userId } = await auth();
   const body = await req.json();
   const { messages } = body; // Asegúrate de que 'messages' contenga el historial completo
 
