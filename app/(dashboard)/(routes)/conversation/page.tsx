@@ -15,6 +15,7 @@ import { Heading } from "@/components/heading";
 import { Loader } from "@/components/loader";
 import { UserAvatar } from "@/components/user-avatar";
 import { Button } from "@/components/ui/button";
+import { MessageDisplay } from "@/components/ui/MessageDisplay";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useProModal } from "@/hooks/use-pro-modal";
@@ -136,7 +137,7 @@ const ConversationPage = () => {
                 )}
               >
                 {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-                <p className="text-sm">{message.content}</p>
+                <p className="text-sm"><MessageDisplay messageContent={message.content} /></p>
               </div>
             ))}
           </div>
