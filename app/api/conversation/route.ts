@@ -37,3 +37,4 @@ export async function POST(req: NextRequest) {
     return new NextResponse('Error interno', { status: 500 });
   }
 }
+
