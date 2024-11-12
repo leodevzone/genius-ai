@@ -48,6 +48,7 @@ const ConversationPage = () => {
         content: values.prompt,
       };
 
+
       // Agrega el mensaje del usuario al historial
       const updatedMessages = [...messages, userMessage];
 
@@ -113,6 +114,7 @@ const ConversationPage = () => {
           </form>
         </Form>
 
+
         <div className="space-y-4 mt-4">
           {isLoading && (
             <div className="p-8 rounded-lg w-full flex items-center justify-center bg-muted">
@@ -143,5 +145,6 @@ const ConversationPage = () => {
     </div>
   );
 };
+
 
 export default ConversationPage;
