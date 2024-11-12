@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { MessageSquare } from "lucide-react";
 import { useRouter } from "next/navigation";
-import OpenAI from "openai"; // <-- Importa correctamente el tipo
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -22,8 +21,7 @@ import { useProModal } from "@/hooks/use-pro-modal";
 import { cn } from "@/lib/utils";
 import { conversationFormSchema } from "@/schemas";
 
-
-// Define manualmente el tipo ChatCompletionRequestMessage
+// Define el tipo de mensaje con historial de conversación
 type ChatCompletionRequestMessage = {
   role: "system" | "user" | "assistant";
   content: string;
@@ -50,19 +48,23 @@ const ConversationPage = () => {
         content: values.prompt,
       };
 
-      const newMessages = [...messages, userMessage];
+      // Agrega el mensaje del usuario al historial
+      const updatedMessages = [...messages, userMessage];
 
+      // Envía el historial de mensajes a la API
       const response = await axios.post("/api/conversation", {
-        messages: newMessages,
+        messages: updatedMessages,
       });
 
-      setMessages((current) => [...current, userMessage, response.data]);
+      // Actualiza el historial de mensajes con la respuesta del asistente
+      setMessages([...updatedMessages, response.data]);
     } catch (error: any) {
-      if (axios.isAxiosError(error) && error?.response?.status === 403)
+      if (axios.isAxiosError(error) && error?.response?.status === 403) {
         proModal.onOpen();
-      else toast.error("Something went wrong.");
-
-      console.error(error);
+      } else {
+        toast.error("Ocurrió un error.");
+        console.error(error);
+      }
     } finally {
       form.reset();
       router.refresh();
@@ -72,49 +74,44 @@ const ConversationPage = () => {
   return (
     <div>
       <Heading
-        title="Conversation"
-        description="Our most advanced conversation model."
+        title="Conversación"
+        description="Nuestro modelo de conversación avanzado."
         icon={MessageSquare}
         iconColor="text-violet-500"
         bgColor="bg-violet-500/10"
       />
 
       <div className="px-4 lg:px-8">
-        <div className="">
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              autoComplete="off"
-              autoCapitalize="off"
-              className="rounded-lg border w-full p-4 px-3 md:px-6 focus-within:shadow-sm grid grid-cols-12 gap-2"
-            >
-              <FormField
-                name="prompt"
-                render={({ field }) => (
-                  <FormItem className="col-span-12 lg:col-span-10">
-                    <FormControl className="m-0 p-0">
-                      <Input
-                        className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
-                        disabled={isLoading}
-                        aria-disabled={isLoading}
-                        placeholder="How do I calculate the radius of a circle?"
-                        {...field}
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            autoComplete="off"
+            className="rounded-lg border w-full p-4 px-3 md:px-6 focus-within:shadow-sm grid grid-cols-12 gap-2"
+          >
+            <FormField
+              name="prompt"
+              render={({ field }) => (
+                <FormItem className="col-span-12 lg:col-span-10">
+                  <FormControl className="m-0 p-0">
+                    <Input
+                      className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
+                      disabled={isLoading}
+                      placeholder="Escribe tu mensaje aquí..."
+                      {...field}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
 
-              <Button
-                className="col-span-12 lg:col-span-2 w-full"
-                disabled={isLoading}
-                aria-disabled={isLoading}
-              >
-                Generate
-              </Button>
-            </form>
-          </Form>
-        </div>
+            <Button
+              className="col-span-12 lg:col-span-2 w-full"
+              disabled={isLoading}
+            >
+              Consultar
+            </Button>
+          </form>
+        </Form>
 
         <div className="space-y-4 mt-4">
           {isLoading && (
@@ -123,7 +120,7 @@ const ConversationPage = () => {
             </div>
           )}
           {messages.length === 0 && !isLoading && (
-            <Empty label="No conversation started." />
+            <Empty label="No se ha iniciado una conversación." />
           )}
           <div className="flex flex-col-reverse gap-y-4">
             {messages.map((message, i) => (
@@ -133,7 +130,7 @@ const ConversationPage = () => {
                   "p-8 w-full flex items-start gap-x-8 rounded-lg",
                   message.role === "user"
                     ? "bg-white border border-black/10"
-                    : "bg-muted",
+                    : "bg-muted"
                 )}
               >
                 {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
