@@ -1,7 +1,7 @@
 import { MessageDisplay } from './MessageDisplay';
 import { UserAvatar  } from '@/components/user-avatar';
 import { BotAvatar }  from '@/components/bot-avatar';
-import { Empty } from "@/components/ui/empty";
+import { Empty } from "./empty";
 import { Loader } from "@/components/loader";
 import { cn } from "@/lib/utils";
 // Define el tipo de mensaje con historial de conversación 

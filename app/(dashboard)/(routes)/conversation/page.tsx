@@ -16,7 +16,7 @@ import { Heading } from "@/components/heading";
 
 import { UserAvatar } from "@/components/user-avatar";
 import { Button } from "@/components/ui/button";
-import { MessageDisplay } from "@/components/ui/MessageDisplay";
+// import { MessageDisplay } from "@/components/ui/messagedisplay";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useProModal } from "@/hooks/use-pro-modal";
