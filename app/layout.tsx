@@ -9,7 +9,7 @@ import { ModalProvider } from "@/providers/modal-provider";
 import { ToasterProvider } from "@/providers/toaster-provider";
 
 import "./globals.css";
-
+import "./site.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = siteConfig;

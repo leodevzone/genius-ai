@@ -11,16 +11,18 @@ import * as z from "zod";
 
 import { BotAvatar } from "@/components/bot-avatar";
 import { Empty } from "@/components/ui/empty";
-import { Heading } from "@/components/heading";
 import { Loader } from "@/components/loader";
+import { Heading } from "@/components/heading";
+
 import { UserAvatar } from "@/components/user-avatar";
 import { Button } from "@/components/ui/button";
-import { MessageDisplay } from "@/components/ui/MessageDisplay";
+// import { MessageDisplay } from "@/components/ui/messagedisplay";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useProModal } from "@/hooks/use-pro-modal";
 import { cn } from "@/lib/utils";
 import { conversationFormSchema } from "@/schemas";
+import { MessagesList } from '@/components/ui/MessagesList';
 
 // Define el tipo de mensaje con historial de conversación
 type ChatCompletionRequestMessage = {
@@ -113,9 +115,9 @@ const ConversationPage = () => {
             </Button>
           </form>
         </Form>
+        <MessagesList messages={messages} isLoadingAnswer={isLoading} />
 
-
-        <div className="space-y-4 mt-4">
+        {/* <div className="space-y-4 mt-4">
           {isLoading && (
             <div className="p-8 rounded-lg w-full flex items-center justify-center bg-muted">
               <Loader />
@@ -140,7 +142,7 @@ const ConversationPage = () => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
