@@ -59,5 +59,5 @@ const MessagesList: React.FC<MessagesListProps> = ({ messages, isLoadingAnswer }
     </div>
   );
 };
+export { MessagesList }; 
 
-export default MessagesList;
