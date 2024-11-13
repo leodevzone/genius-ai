@@ -22,7 +22,7 @@ import { Input } from "@/components/ui/input";
 import { useProModal } from "@/hooks/use-pro-modal";
 import { cn } from "@/lib/utils";
 import { conversationFormSchema } from "@/schemas";
-import { MessagesList } from '@/components/ui/MessagesList'
+import { MessagesList } from '@/components/ui/MessagesList';
 
 // Define el tipo de mensaje con historial de conversación
 type ChatCompletionRequestMessage = {
