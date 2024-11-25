@@ -77,13 +77,13 @@ const ConversationPage = () => {
 
   return (
     <div>
-      <Heading
+      {/* <Heading
         title="Conversación"
         description="Nuestro modelo de conversación avanzado."
         icon={MessageSquare}
         iconColor="text-violet-500"
         bgColor="bg-violet-500/10"
-      />
+      /> */}
 
       <div className="px-4 lg:px-8">
   
