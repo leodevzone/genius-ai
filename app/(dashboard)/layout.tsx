@@ -1,6 +1,7 @@
 import type { PropsWithChildren } from "react";
 
 import { Navbar } from "@/components/navbar";
+import { SideMessage } from "@/components/sidemessage";
 import { Sidebar } from "@/components/sidebar";
 import { getApiLimitCount } from "@/lib/api-limit";
 import { checkSubscription } from "@/lib/subscription";
@@ -18,6 +19,7 @@ const DashboardLayout = async ({ children }: PropsWithChildren) => {
       <main className="md:md:pl-72">
         <Navbar />
         {children}
+        <SideMessage apiLimitCount={apiLimitCount} isPro={isPro} />
       </main>
     </div>
   );
