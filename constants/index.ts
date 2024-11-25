@@ -14,7 +14,7 @@ import {
 
 export const SITE_NAME = "Simon-ai";
 
-export const MAX_FREE_COUNTS = 4 as const;
+export const MAX_FREE_COUNTS = 8 as const;
 
 export const TESTIMONIALS = [
   {
@@ -71,13 +71,13 @@ export const TOOLS = [
     bgColor: "bg-violet-500/10",
     href: "/conversation",
   },
-  {
-    label: "Music Generation",
-    icon: Music,
-    color: "text-emerald-500",
-    bgColor: "bg-violet-500/10",
-    href: "/music",
-  },
+  // {
+  //   label: "Music Generation",
+  //   icon: Music,
+  //   color: "text-emerald-500",
+  //   bgColor: "bg-violet-500/10",
+  //   href: "/music",
+  // },
   {
     label: "Image Generation",
     icon: ImageIcon,
@@ -92,13 +92,13 @@ export const TOOLS = [
     bgColor: "bg-orange-700/10",
     href: "/video",
   },
-  {
-    label: "Code Generation",
-    icon: Code,
-    color: "text-green-700",
-    bgColor: "bg-green-700/10",
-    href: "/code",
-  },
+  // {
+  //   label: "Code Generation",
+  //   icon: Code,
+  //   color: "text-green-700",
+  //   bgColor: "bg-green-700/10",
+  //   href: "/code",
+  // },
 ] as const;
 
 
