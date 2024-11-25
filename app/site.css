@@ -68,13 +68,20 @@
     padding-left: 1.2em;
 }
 .message ul {
-    list-style-type: disc;  /* Asegura que se muestre el punto de la lista */
+    list-style-type: disc !important;  /* Asegura que se muestre el punto de la lista */
     padding-left: 1.5em;    /* Espaciado a la izquierda para alinear los puntos */
     margin: 0.5em 0;
 }
 .message li {
     margin-bottom: 0.4em;
 }
+.message li {
+    margin-bottom: 0.4em;
+}
+.bg-green-800 {
+    background-color: #7fffe84f;
+}
+
 /* Additional styling for better responsiveness */
 @media (max-width: 600px) {
     .chat-container {
