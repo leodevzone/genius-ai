@@ -1,6 +1,6 @@
 <a name="readme-top"></a>
 
-# Genius - A Modern Next.js 14 SaaS AI Platform.
+# simon - A Modern Next.js 14 SaaS AI Platform.
 
 ![Genius - A Modern Next.js 14 SaaS AI Platform.](/.github/images/img_main.png "Genius - A Modern Next.js 14 SaaS AI Platform.")
 

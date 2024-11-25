@@ -1,4 +1,4 @@
-# Code of Conduct - Genius
+# Code of Conduct - simonai
 
 ## Our Pledge
 
