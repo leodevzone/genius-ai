@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 import { ROUTES } from "@/constants";
 import { cn } from "@/lib/utils";
 
-import { Empty } from "@/components/ui/empty";
+import { EmptyGeneric } from "@/components/ui/emptygeneric";
 
 const montserrat = Montserrat({
   weight: "600",
@@ -23,7 +23,7 @@ export const SideMessage = () => {
   return (
     <div className="space-y-4 py-4 flex flex-col h-full bg-orange-700/10 text-white">
       <div className="px-3 py-2 flex-1">
-      <Empty label="Sin mensajes guardados." />
+      <EmptyGeneric label="Sin mensajes guardados." />
 
         {/* <div className="space-y-1">
           {ROUTES.map((route) => (
