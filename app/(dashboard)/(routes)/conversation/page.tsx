@@ -12,10 +12,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 
-import { BotAvatar } from "@/components/bot-avatar";
-import { Empty } from "@/components/ui/empty";
-import { Loader } from "@/components/loader";
-import { Heading } from "@/components/heading";
+
 
 import { UserAvatar } from "@/components/user-avatar";
 import { Button } from "@/components/ui/button";
@@ -33,13 +30,13 @@ type ChatCompletionRequestMessage = {
   content: string;
 };
 
+
 const ConversationPage = () => {
   const proModal = useProModal();
   const router = useRouter();
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
 
-  const apiLimitCount = await getApiLimitCount();
-  const isPro = await checkSubscription();
+
 
   const form = useForm<z.infer<typeof conversationFormSchema>>({
     resolver: zodResolver(conversationFormSchema),
@@ -93,7 +90,7 @@ const ConversationPage = () => {
       /> */}
         {/* Barra lateral derecha */}
         <div className="hidden h-full md:flex md:w-72 md:flex-col md:fixed md:inset-y-0 right-0 bg-gray-100">
-          <SideMessage apiLimitCount={apiLimitCount} isPro={isPro} />
+          <SideMessage />
         </div>
 
       <div className="px-4 lg:px-8">

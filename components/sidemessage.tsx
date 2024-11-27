@@ -15,12 +15,9 @@ const montserrat = Montserrat({
   subsets: ["latin"],
 });
 
-type SidebarProps = {
-  apiLimitCount: number;
-  isPro: boolean;
-};
 
-export const SideMessage = ({ apiLimitCount = 0, isPro = false }: SidebarProps) => {
+
+export const SideMessage = () => {
   const pathname = usePathname();
 
   return (
