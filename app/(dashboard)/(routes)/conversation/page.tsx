@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { MessageSquare } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { SideMessage } from "@/components/sidemessage";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -76,6 +77,7 @@ const ConversationPage = () => {
   };
 
   return (
+
     <div>
       {/* <Heading
         title="Conversación"
@@ -84,6 +86,10 @@ const ConversationPage = () => {
         iconColor="text-violet-500"
         bgColor="bg-violet-500/10"
       /> */}
+        {/* Barra lateral derecha */}
+        <div className="hidden h-full md:flex md:w-72 md:flex-col md:fixed md:inset-y-0 right-0 bg-gray-100">
+          <SideMessage apiLimitCount={apiLimitCount} isPro={isPro} />
+        </div>
 
       <div className="px-4 lg:px-8">
   
