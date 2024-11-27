@@ -2,6 +2,8 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { getApiLimitCount } from "@/lib/api-limit";
+import { checkSubscription } from "@/lib/subscription";
 import { MessageSquare } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { SideMessage } from "@/components/sidemessage";
@@ -35,6 +37,9 @@ const ConversationPage = () => {
   const proModal = useProModal();
   const router = useRouter();
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
+
+  const apiLimitCount = await getApiLimitCount();
+  const isPro = await checkSubscription();
 
   const form = useForm<z.infer<typeof conversationFormSchema>>({
     resolver: zodResolver(conversationFormSchema),
