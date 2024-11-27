@@ -5,14 +5,14 @@ import { SideMessage } from "@/components/sidemessage";
 import { Sidebar } from "@/components/sidebar";
 import { getApiLimitCount } from "@/lib/api-limit";
 import { checkSubscription } from "@/lib/subscription";
-import { useRouter } from 'next/router';
+import { usePathname } from "next/navigation";
 
 const DashboardLayout = async ({ children }: PropsWithChildren) => {
   const apiLimitCount = await getApiLimitCount();
   const isPro = await checkSubscription();
-  const router = useRouter();
+  const pathname = usePathname();
    // Aquí definimos la condición para la página específica
-   const isSpecificPage = router.asPath === "/conversation"; // Asegúrate de usar el path correcto
+   const isSpecificPage = pathname === "/conversation"; // Asegúrate de usar el path correcto
 
   return (
     // <div className="h-full relative">
