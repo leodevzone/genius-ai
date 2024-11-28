@@ -89,7 +89,7 @@ const ConversationPage = () => {
         bgColor="bg-violet-500/10"
       /> */}
         {/* Barra lateral derecha */}
-        <div className="hidden h-full md:flex md:w-72 md:flex-col md:fixed md:inset-y-0 right-0 bg-gray-100">
+        <div className="hidden h-full md:flex md:w-52 md:flex-col md:fixed md:inset-y-0 right-0 bg-gray-100">
           <SideMessage />
         </div>
 
