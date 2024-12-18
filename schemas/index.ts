@@ -8,7 +8,7 @@ export const conversationFormSchema = z.object({
 
 export const codeFormSchema = z.object({
   prompt: z.string().min(1, {
-    message: "Prompt is required.",
+    message: "Un Prompt es requerido",
   }),
 });
 
@@ -18,6 +18,8 @@ export const imageFormSchema = z.object({
   }),
   amount: z.string().min(1),
   resolution: z.string().min(1),
+  quality: z.string().min(1),
+  style: z.string().min(1),
 });
 
 export const musicFormSchema = z.object({

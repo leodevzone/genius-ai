@@ -30,41 +30,61 @@ import { imageFormSchema } from "@/schemas";
 const amountOptions = [
   {
     value: "1",
-    label: "1 Photo",
+    label: "1 Foto",
   },
   {
     value: "2",
-    label: "2 Photos",
+    label: "2 Fotos",
   },
   {
     value: "3",
-    label: "3 Photos",
+    label: "3 Fotos",
   },
   {
     value: "4",
-    label: "4 Photos",
+    label: "4 Fotos",
   },
   {
     value: "5",
-    label: "5 Photos",
+    label: "5 Fotos",
   },
 ];
 
 const resolutionOptions = [
   {
-    value: "256x256",
-    label: "256x256",
-  },
-  {
-    value: "512x512",
-    label: "512x512",
-  },
-  {
     value: "1024x1024",
-    label: "1024x1024",
+    label: "1024x1024 - imagen rectangular",
+  },  
+  {
+    value: "1024x1792",
+    label: "1024x1792 - Imagen Vertical",
+  },
+  {
+    value: "1792x1024",
+    label: "1792x1024 - Imagen Horizontal",
+  },
+
+];
+const qualityOptions = [
+  {
+    value: "standard",
+    label: "Calidad estándar",
+  },  
+  {
+    value: "hd",
+    label: "Alta definición (HD)",
   },
 ];
-
+const styleOptions = [
+  {
+    value: "natural",
+    label: "Apariencia natural",
+  },  
+  {
+    value: "vivid",
+    label: "Colores y estilos más vibrantes",
+  },
+];
 const ImagePage = () => {
   const proModal = useProModal();
   const router = useRouter();
@@ -75,7 +95,9 @@ const ImagePage = () => {
     defaultValues: {
       prompt: "",
       amount: "1",
-      resolution: "512x512",
+      resolution: "1024x1024",
+      quality: "standard",
+      style: "natural",
     },
   });
 
@@ -130,7 +152,7 @@ const ImagePage = () => {
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                         disabled={isLoading}
                         aria-disabled={isLoading}
-                        placeholder="A picture of a horse in Swiss Alps."
+                        placeholder="Escribe la descripción de tu imagen aquí"
                         {...field}
                       />
                     </FormControl>
@@ -142,7 +164,7 @@ const ImagePage = () => {
                 control={form.control}
                 name="amount"
                 render={({ field }) => (
-                  <FormItem className="col-span-12 lg:col-span-2">
+                  <FormItem className="col-span-12 lg:col-span-4">
                     <Select
                       disabled={isLoading}
                       onValueChange={field.onChange}
@@ -171,7 +193,7 @@ const ImagePage = () => {
                 control={form.control}
                 name="resolution"
                 render={({ field }) => (
-                  <FormItem className="col-span-12 lg:col-span-2">
+                  <FormItem className="col-span-12 lg:col-span-4">
                     <Select
                       disabled={isLoading}
                       onValueChange={field.onChange}
@@ -196,6 +218,63 @@ const ImagePage = () => {
                 )}
               />
 
+          <FormField
+                control={form.control}
+                name="quality"
+                render={({ field }) => (
+                  <FormItem className="col-span-12 lg:col-span-4">
+                    <Select
+                      disabled={isLoading}
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue defaultValue={field.value} />
+                        </SelectTrigger>
+                      </FormControl>
+
+                      <SelectContent>
+                        {qualityOptions.map((option) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormItem>
+                )}
+              />
+
+          <FormField
+                control={form.control}
+                name="quality"
+                render={({ field }) => (
+                  <FormItem className="col-span-12 lg:col-span-4">
+                    <Select
+                      disabled={isLoading}
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue defaultValue={field.value} />
+                        </SelectTrigger>
+                      </FormControl>
+
+                      <SelectContent>
+                        {styleOptions.map((option) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormItem>
+                )}
+              />
               <Button
                 className="col-span-12 lg:col-span-2 w-full"
                 disabled={isLoading}
