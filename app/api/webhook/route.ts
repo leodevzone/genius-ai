@@ -7,7 +7,10 @@ import { stripe } from "@/lib/stripe";
 
 export async function POST(req: NextRequest) {
   const body = await req.text();
-  const signature = headers().get("Stripe-Signature") as string;
+
+  // Resuelve el Promise de `headers()`
+  const resolvedHeaders = await headers();
+  const signature = resolvedHeaders.get("Stripe-Signature") as string;
 
   let event: Stripe.Event;
 
@@ -15,7 +18,7 @@ export async function POST(req: NextRequest) {
     event = stripe.webhooks.constructEvent(
       body,
       signature,
-      process.env.STRIPE_WEBHOOK_SECRET!,
+      process.env.STRIPE_WEBHOOK_SECRET!
     );
   } catch (error: any) {
     return new NextResponse(`Webhook Error: ${error?.message}`, {
@@ -27,7 +30,7 @@ export async function POST(req: NextRequest) {
 
   if (event.type === "checkout.session.completed") {
     const subscription = await stripe.subscriptions.retrieve(
-      session.subscription as string,
+      session.subscription as string
     );
 
     if (!session?.metadata?.userId)
@@ -40,7 +43,7 @@ export async function POST(req: NextRequest) {
         stripeCustomerId: subscription.customer as string,
         stripePriceId: subscription.items.data[0].price.id,
         stripeCurrentPeriodEnd: new Date(
-          subscription.current_period_end * 1000,
+          subscription.current_period_end * 1000
         ),
       },
     });
@@ -48,7 +51,7 @@ export async function POST(req: NextRequest) {
 
   if (event.type === "invoice.payment_succeeded") {
     const subscription = await stripe.subscriptions.retrieve(
-      session.subscription as string,
+      session.subscription as string
     );
 
     await db.userSubscription.update({
@@ -58,7 +61,7 @@ export async function POST(req: NextRequest) {
       data: {
         stripePriceId: subscription.items.data[0].price.id,
         stripeCurrentPeriodEnd: new Date(
-          subscription.current_period_end * 1000,
+          subscription.current_period_end * 1000
         ),
       },
     });
