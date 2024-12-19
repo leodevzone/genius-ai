@@ -49,12 +49,12 @@ export async function POST(req: NextRequest) {
 
     // Llamada correcta a la API de OpenAI para generar imágenes
     const response = await openai.images.generate({
-      model: "dall-e-2", // o "dall-e-2" dependiendo de tus necesidades
+      model: "dall-e-2", // o "dall-e-3" es necesario reemplazar parametros dependiendo de tus necesidades
       prompt: prompt,
-      n: parseInt(amount, 4),
-      size: resolution as "1024x1024" | "1024x1792" | "1792x1024", // dall-e-3 sizes
-      quality: quality as "standard" | "hd", // "standard" o "hd" para dall-e-3
-      style: style as "natural" |  "vivid", // "natural" o "vivid" para dall-e-3
+      n: parseInt(amount, 5),
+      size: resolution as "256x256"| "512x512"| "1024x1024", // dall-e-3 sizes
+      // quality: quality as "standard" | "hd", // "standard" o "hd" para dall-e-3
+      // style: style as "natural" |  "vivid", // "natural" o "vivid" para dall-e-3
     });
 console.log('[response]', response);
     if (!isPro) {

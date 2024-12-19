@@ -49,22 +49,36 @@ const amountOptions = [
     label: "5 Fotos",
   },
 ];
-
 const resolutionOptions = [
   {
-    value: "1024x1024",
-    label: "1024x1024 - imagen rectangular",
+    value: "256x256",
+    label: "256x256",
   },  
   {
-    value: "1024x1792",
-    label: "1024x1792 - Imagen Vertical",
+    value: "512x512",
+    label: "512x512",
   },
   {
-    value: "1792x1024",
-    label: "1792x1024 - Imagen Horizontal",
+    value: "1024x1024",
+    label: "1024x1024",
   },
 
 ];
+// const resolutionOptions = [
+//   {
+//     value: "1024x1024",
+//     label: "1024x1024 - imagen rectangular",
+//   },  
+//   {
+//     value: "1024x1792",
+//     label: "1024x1792 - Imagen Vertical",
+//   },
+//   {
+//     value: "1792x1024",
+//     label: "1792x1024 - Imagen Horizontal",
+//   },
+
+// ];
 const qualityOptions = [
   {
     value: "standard",
