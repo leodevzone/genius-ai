@@ -123,8 +123,8 @@ const ImagePage = () => {
 
       const response = await axios.post("/api/image", values);
       console.log('[responsepage]', response);
-      const urls = response.data.map((image: { url: string }) => image.url);
-
+     // const urls = response.data.map((image: { url: string }) => image.url);
+      const urls = response.data.imageUrls || []; 
       setImages(urls);
     } catch (error: unknown) {
       if (axios.isAxiosError(error) && error?.response?.status === 403)
