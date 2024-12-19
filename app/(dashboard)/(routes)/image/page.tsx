@@ -249,7 +249,7 @@ const ImagePage = () => {
 
           <FormField
                 control={form.control}
-                name="quality"
+                name="style"
                 render={({ field }) => (
                   <FormItem className="col-span-12 lg:col-span-4">
                     <Select
