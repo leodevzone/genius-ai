@@ -56,14 +56,16 @@ export async function POST(req: NextRequest) {
       // quality: quality as "standard" | "hd", // "standard" o "hd" para dall-e-3
       // style: style as "natural" |  "vivid", // "natural" o "vivid" para dall-e-3
     });
-console.log('[response]', response);
+//console.log('[response]', response);
     if (!isPro) {
       await increaseApiLimit();
     }
-    console.log('[response]', response);
+   // console.log('[response]', response);
     // La respuesta ahora incluye las URLs de las imágenes generadas
-    const imageUrls = response.data.map((image) => image.url);
-
+    //dalle -3
+    //const imageUrls = response.data.map((image) => image.url);
+//dalle 2
+    const imageUrls =response.data.map(item => item.url);
     return NextResponse.json({ imageUrls });
     
   } catch (error) {
