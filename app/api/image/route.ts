@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
     const { userId } = await auth();
     const body = await req.json();
     const { prompt, amount = "1", resolution = "1024x1024", quality="standard", style="natural"} = body;
-    console.log('[body]', body);
+   // console.log('[body]', body);
     if (!userId) {
       return new NextResponse("No está autorizado", { status: 401 });
     }
