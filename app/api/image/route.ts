@@ -57,10 +57,11 @@ export async function POST(req: NextRequest) {
       // style: style as "natural" |  "vivid", // "natural" o "vivid" para dall-e-3
     });
     console.log('[response]', response);
-    if (!isPro) {
-      await increaseApiLimit();
-    }
-   // console.log('[response]', response);
+    //controlar esta parte, solo para las pruebas por los tiempos se comento
+   // if (!isPro) {
+   //   await increaseApiLimit();
+   // }
+   //
     // La respuesta ahora incluye las URLs de las imágenes generadas
     //dalle -3
     //const imageUrls = response.data.map((image) => image.url);
