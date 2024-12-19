@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
   try {
     const { userId } = await auth();
     const body = await req.json();
-    const { prompt, amount = "1", resolution = "1024x1024" } = body;
+    const { prompt, amount = "1", resolution = "1024x1024", quality="standard", style="natural"} = body;
     console.log('[body]', body);
     if (!userId) {
       return new NextResponse("No está autorizado", { status: 401 });
@@ -49,14 +49,14 @@ export async function POST(req: NextRequest) {
 
     // Llamada correcta a la API de OpenAI para generar imágenes
     const response = await openai.images.generate({
-      model: "dall-e-3", // o "dall-e-2" dependiendo de tus necesidades
+      model: "dall-e-2", // o "dall-e-2" dependiendo de tus necesidades
       prompt: prompt,
-      n: parseInt(amount, 10),
+      n: parseInt(amount, 4),
       size: resolution as "1024x1024" | "1024x1792" | "1792x1024", // dall-e-3 sizes
-      quality: "standard", // "standard" o "hd" para dall-e-3
-      style: "natural", // "natural" o "vivid" para dall-e-3
+      quality: quality as "standard" | "hd", // "standard" o "hd" para dall-e-3
+      style: style as "natural" |  "vivid", // "natural" o "vivid" para dall-e-3
     });
-
+console.log('[response]', response);
     if (!isPro) {
       await increaseApiLimit();
     }
