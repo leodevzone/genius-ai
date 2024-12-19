@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
       // quality: quality as "standard" | "hd", // "standard" o "hd" para dall-e-3
       // style: style as "natural" |  "vivid", // "natural" o "vivid" para dall-e-3
     });
-//console.log('[response]', response);
+    console.log('[response]', response);
     if (!isPro) {
       await increaseApiLimit();
     }
