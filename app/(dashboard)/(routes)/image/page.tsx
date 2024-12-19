@@ -115,7 +115,7 @@ const ImagePage = () => {
     } catch (error: unknown) {
       if (axios.isAxiosError(error) && error?.response?.status === 403)
         proModal.onOpen();
-      else toast.error("Something went wrong.");
+      else toast.error("Hubo un problema.");
 
       console.error(error);
     } finally {
@@ -280,7 +280,7 @@ const ImagePage = () => {
                 disabled={isLoading}
                 aria-disabled={isLoading}
               >
-                Generate
+                Generar
               </Button>
             </form>
           </Form>

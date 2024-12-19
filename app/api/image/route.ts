@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
     const { userId } = await auth();
     const body = await req.json();
     const { prompt, amount = "1", resolution = "1024x1024" } = body;
-
+    console.log('[body]', body);
     if (!userId) {
       return new NextResponse("No está autorizado", { status: 401 });
     }
@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
     if (!isPro) {
       await increaseApiLimit();
     }
-
+    console.log('[response]', response);
     // La respuesta ahora incluye las URLs de las imágenes generadas
     const imageUrls = response.data.map((image) => image.url);
 
