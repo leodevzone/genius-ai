@@ -122,7 +122,7 @@ const ImagePage = () => {
       setImages([]);
 
       const response = await axios.post("/api/image", values);
-
+      console.log('[responsepage]', response);
       const urls = response.data.map((image: { url: string }) => image.url);
 
       setImages(urls);
